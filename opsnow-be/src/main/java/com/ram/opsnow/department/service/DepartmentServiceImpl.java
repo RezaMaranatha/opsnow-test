@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import com.ram.opsnow.department.dto.DepartmentDTO;
 import com.ram.opsnow.department.entity.Department;
@@ -17,6 +18,10 @@ import com.ram.opsnow.exception.InvalidDataException;
 import com.ram.opsnow.util.DepartmentSpecification;
 import com.ram.opsnow.util.PaginationResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
 public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepository departmentRepository;
     private final ModelMapper modelMapper;
@@ -71,7 +76,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public DepartmentDTO updateLocation(DepartmentDTO departmentDTO) {
+    public DepartmentDTO updateDepartment(DepartmentDTO departmentDTO) {
         if (!departmentRepository.existsById(departmentDTO.getDepartmentCode())) {
             throw new DataNotFoundException("Department not found with code: " + departmentDTO.getDepartmentCode());
         }
@@ -80,7 +85,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public String deleteLocation(String departmentCode) {
+    public String deleteDepartment(String departmentCode) {
         try {
             departmentRepository.deleteById(departmentCode);
         } catch (Exception e) {

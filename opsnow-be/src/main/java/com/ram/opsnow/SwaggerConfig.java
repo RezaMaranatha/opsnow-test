@@ -2,28 +2,24 @@ package com.ram.opsnow;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
+
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 
 @Configuration
 public class SwaggerConfig {
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable()) // Disable CSRF to allow Swagger UI to work properly
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/swagger-ui.html",
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**",
-                                "/v3/api-docs.yaml")
-                        .permitAll()
-                        .anyRequest().permitAll() // or use .authenticated() as needed
-                )
-                .httpBasic(httpBasic -> {
-                }); // Optional
+	private SecurityScheme createAPIKeyScheme() {
+		return new SecurityScheme().type(SecurityScheme.Type.HTTP)
+				.bearerFormat("JWT")
+				.scheme("bearer");
+	}
 
-        return http.build();
-    }
+	@Bean
+	public OpenAPI openAPI() {
+		return new OpenAPI().addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
+				.components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()));
+	}
 }

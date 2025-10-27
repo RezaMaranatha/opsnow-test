@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
 
 import com.ram.opsnow.exception.DataAlreadyExistException;
 import com.ram.opsnow.exception.DataNotFoundException;
@@ -17,6 +18,10 @@ import com.ram.opsnow.location.repository.LocationRepository;
 import com.ram.opsnow.util.LocationSpecification;
 import com.ram.opsnow.util.PaginationResponse;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
 public class LocationServiceImpl implements LocationService {
     private final LocationRepository locationRepository;
     private final ModelMapper modelMapper;

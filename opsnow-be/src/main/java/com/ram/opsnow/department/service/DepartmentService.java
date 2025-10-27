@@ -12,7 +12,7 @@ public interface DepartmentService {
 
     DepartmentDTO createDepartment(DepartmentDTO departmentDTO);
 
-    DepartmentDTO updateLocation(DepartmentDTO departmentDTO);
+    DepartmentDTO updateDepartment(DepartmentDTO departmentDTO);
 
-    String deleteLocation(String departmentCode);
+    String deleteDepartment(String departmentCode);
 }

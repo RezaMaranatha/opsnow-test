@@ -1,25 +1,18 @@
-package com.ram.opsnow.employee.entity;
+package com.ram.opsnow.employee.dto;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
 @Data
-@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+public class EmployeeResponseDTO {
     private String employeeNumber;
     private String employeeName;
     private String tierCode;
@@ -29,5 +22,4 @@ public class Employee {
     private BigDecimal salary;
     private LocalDateTime entryDate;
     private String email;
-    private String password;
 }
