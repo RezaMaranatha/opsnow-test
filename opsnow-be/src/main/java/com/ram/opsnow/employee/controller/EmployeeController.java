@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/employees")
+@RequestMapping("/api/employee")
 @RequiredArgsConstructor
 @Tag(name = "Employee", description = "Employee management APIs")
 public class EmployeeController {

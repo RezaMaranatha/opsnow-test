@@ -12,15 +12,17 @@ import com.ram.opsnow.auth.service.AuthenticationService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/auth")
-@RequiredArgsConstructor
+@RequestMapping("/api/auth")
 @Tag(name = "Authentication", description = "Authentication management APIs")
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
+
+    public AuthenticationController(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
 
     @PostMapping("/login")
     @Operation(summary = "Login employee", description = "Authenticate employee and return JWT token")

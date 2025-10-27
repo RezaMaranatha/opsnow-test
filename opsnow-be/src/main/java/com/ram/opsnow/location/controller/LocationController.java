@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/location")
+@RequestMapping("/api/location")
 public class LocationController {
     private final LocationService locationService;
 
