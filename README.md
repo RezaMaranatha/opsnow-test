@@ -14,7 +14,7 @@ docker compose up --build
 
 - Frontend: `http://localhost:3000`
 - Backend API: `http://localhost:8080/api`
-- PostgreSQL: `localhost:5432` (db: `opsnow`, user: `admin`, password: `password`)
+- PostgreSQL: `localhost:5432` (db: `postgres`, user: `admin`, password: `password`)
 
 To stop and remove containers:
 
@@ -35,7 +35,7 @@ mvn spring-boot:run
 ## Services (docker-compose)
 
 - **db**: PostgreSQL
-  - Env: `POSTGRES_DB=opsnow`, `POSTGRES_USER=admin`, `POSTGRES_PASSWORD=password`
+  - Env: `POSTGRES_DB=postgres`, `POSTGRES_USER=admin`, `POSTGRES_PASSWORD=password`
   - Port: `5432:5432`
 - **backend**: Spring Boot
   - Builds from `opsnow-be/Dockerfile`
