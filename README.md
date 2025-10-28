@@ -22,6 +22,16 @@ To stop and remove containers:
 docker compose down
 ```
 
+To run the code locally
+
+```bash
+cd opsnow-fronted & npm install
+npm start
+
+cd opsnow-be & mvn clean install
+mvn spring-boot:run
+```
+
 ## Services (docker-compose)
 
 - **db**: PostgreSQL
