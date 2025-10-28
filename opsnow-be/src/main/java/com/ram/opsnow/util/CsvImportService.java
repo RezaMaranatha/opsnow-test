@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -28,11 +29,9 @@ public class CsvImportService {
 
 	@Transactional
 	public void importEmployee(String filePath) throws IOException {
-		// ✅ 1. Create table if not exists
 		createEmployeeTable();
 
-		// ✅ 2. Insert CSV data
-		String sql = "INSERT INTO employee (employee_number,employee_name,tier_code,location_code,department_code,supervisor_code,salary,entry_date,email,password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO employee (employee_number,employee_name,tier_code,location_code,department_code,supervisor_code,salary,entry_date,password,email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
 			String line;
@@ -40,12 +39,12 @@ public class CsvImportService {
 			boolean skipHeader = true;
 
 			while ((line = br.readLine()) != null) {
-				if (skipHeader) { // skip header row
+				if (skipHeader) {
 					skipHeader = false;
 					continue;
 				}
 
-				String[] data = line.split(";", -1); // 👈 -1 keeps empty strings instead of trimming
+				String[] data = line.split(";", -1);
 				if (data.length < 10)
 					continue;
 
@@ -78,23 +77,20 @@ public class CsvImportService {
 						supervisor_code varchar(50),
 						salary NUMERIC(19, 4),
 						entry_date TIMESTAMP,
-						email varchar NOT NULL,
 						password varchar not null,
+						email varchar NOT NULL,
 						FOREIGN KEY (tier_code) REFERENCES tier(tier_code),
 						FOREIGN KEY (location_code) REFERENCES location(location_code),
 						FOREIGN KEY (department_code) REFERENCES department(department_code)
 					);
 				""";
-		jdbcTemplate.execute("DROP TABLE IF EXISTS employee");
 		jdbcTemplate.execute(createTableSQL);
 	}
 
 	@Transactional
 	public void importLocation(String filePath) throws IOException {
-		// ✅ 1. Create table if not exists
 		createLocationTable();
 
-		// ✅ 2. Insert CSV data
 		String sql = "INSERT INTO location (location_code, location_name,location_address) VALUES (?, ?, ?)";
 
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -103,12 +99,12 @@ public class CsvImportService {
 			boolean skipHeader = true;
 
 			while ((line = br.readLine()) != null) {
-				if (skipHeader) { // skip header row
+				if (skipHeader) {
 					skipHeader = false;
 					continue;
 				}
 
-				String[] data = line.split(";", -1); // 👈 -1 keeps empty strings instead of trimming
+				String[] data = line.split(";", -1);
 				if (data.length < 3)
 					continue;
 
@@ -137,10 +133,8 @@ public class CsvImportService {
 
 	@Transactional
 	public void importTier(String filePath) throws IOException {
-		// ✅ 1. Create table if not exists
 		createTierTable();
 
-		// ✅ 2. Insert CSV data
 		String sql = "INSERT INTO tier (tier_code, tier_name) VALUES (?, ?)";
 
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -149,12 +143,12 @@ public class CsvImportService {
 			boolean skipHeader = true;
 
 			while ((line = br.readLine()) != null) {
-				if (skipHeader) { // skip header row
+				if (skipHeader) {
 					skipHeader = false;
 					continue;
 				}
 
-				String[] data = line.split(";", -1); // 👈 -1 keeps empty strings instead of trimming
+				String[] data = line.split(";", -1);
 				if (data.length < 2)
 					continue;
 
@@ -181,10 +175,8 @@ public class CsvImportService {
 
 	@Transactional
 	public void importDepartment(String filePath) throws IOException {
-		// ✅ 1. Create table if not exists
 		createDepartmentTable();
 
-		// ✅ 2. Insert CSV data
 		String sql = "INSERT INTO department (department_code, department_name) VALUES (?, ?)";
 
 		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -193,12 +185,12 @@ public class CsvImportService {
 			boolean skipHeader = true;
 
 			while ((line = br.readLine()) != null) {
-				if (skipHeader) { // skip header row
+				if (skipHeader) {
 					skipHeader = false;
 					continue;
 				}
 
-				String[] data = line.split(";", -1); // 👈 -1 keeps empty strings instead of trimming
+				String[] data = line.split(";", -1);
 				if (data.length < 2)
 					continue;
 
@@ -242,11 +234,12 @@ public class CsvImportService {
 
 		String v = value.trim();
 		List<DateTimeFormatter> formatters = List.of(
-				DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+				DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
 		for (DateTimeFormatter formatter : formatters) {
 			try {
-				return LocalDateTime.parse(v, formatter);
+				LocalDate localDate = LocalDate.parse(v, formatter);
+				return localDate.atStartOfDay();
 			} catch (DateTimeParseException e) {
 				log.error(e.getMessage());
 			}
@@ -255,5 +248,32 @@ public class CsvImportService {
 		// Optional: log unparseable timestamps
 		log.error("⚠️ Unrecognized timestamp format: " + v);
 		return null;
+	}
+
+	@Transactional
+	public void deleteEmployeeTable() {
+		String dropTableSQL = "DROP TABLE IF EXISTS employee";
+		jdbcTemplate.execute(dropTableSQL);
+	}
+
+	@Transactional
+	public void createLoggingTable() {
+		String createTableSQL = """
+				CREATE TABLE IF NOT EXISTS api_call_history (
+				    id VARCHAR(36) PRIMARY KEY,
+				    timestamp TIMESTAMP NOT NULL,
+				    api_endpoint VARCHAR(500) NOT NULL,
+				    http_method VARCHAR(10) NOT NULL,
+				    user_identifier VARCHAR(100),
+				    response_status INTEGER NOT NULL,
+				    request_duration_ms BIGINT,
+				    client_ip VARCHAR(45),
+				    user_agent VARCHAR(1000),
+				    request_body TEXT,
+				    response_body TEXT,
+				    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+				);
+								""";
+		jdbcTemplate.execute(createTableSQL);
 	}
 }

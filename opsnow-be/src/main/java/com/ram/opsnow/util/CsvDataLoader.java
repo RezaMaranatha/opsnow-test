@@ -16,14 +16,16 @@ public class CsvDataLoader implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// csvImportService.importDepartment("src/main/resources/data/department.csv");
-		// log.info("Department data imported");
-		// csvImportService.importTier("src/main/resources/data/tier.csv");
-		// log.info("Tier data imported");
-		// csvImportService.importLocation("src/main/resources/data/location.csv");
-		// log.info("Location data imported");
-		// csvImportService.importEmployee("src/main/resources/data/employee.csv");
-		// log.info("Employee data imported");
-
+		csvImportService.deleteEmployeeTable();
+		csvImportService.importDepartment("src/main/resources/data/department.csv");
+		log.info("Department data imported");
+		csvImportService.importTier("src/main/resources/data/tier.csv");
+		log.info("Tier data imported");
+		csvImportService.importLocation("src/main/resources/data/location.csv");
+		log.info("Location data imported");
+		csvImportService.importEmployee("src/main/resources/data/employee.csv");
+		log.info("Employee data imported");
+		csvImportService.createLoggingTable();
+		log.info("Logging table created");
 	}
 }
