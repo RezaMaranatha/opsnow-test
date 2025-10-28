@@ -78,7 +78,7 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public LocationDTO updateLocation(LocationDTO locationDTO) {
-        if (!locationRepository.existsById(locationDTO.getLocationName())) {
+        if (!locationRepository.existsById(locationDTO.getLocationCode())) {
             throw new DataNotFoundException("Location not found with code: " + locationDTO.getLocationCode());
         }
         var location = locationRepository.save(modelMapper.map(locationDTO, Location.class));

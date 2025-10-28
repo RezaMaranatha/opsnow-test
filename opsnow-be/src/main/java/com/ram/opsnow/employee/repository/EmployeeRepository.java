@@ -8,4 +8,6 @@ import java.util.Optional;
 
 public interface EmployeeRepository extends JpaRepository<Employee, String>, JpaSpecificationExecutor<Employee> {
     Optional<Employee> findByEmail(String email);
+
+    Employee findFirstByOrderByEmployeeNumberDesc();
 }

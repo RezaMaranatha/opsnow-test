@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private String employeeNumber;
     private String employeeName;
     private String tierCode;

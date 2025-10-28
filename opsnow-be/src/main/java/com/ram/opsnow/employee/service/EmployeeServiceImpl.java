@@ -74,12 +74,26 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	public EmployeeResponseDTO createEmployee(EmployeeRequestDTO employeeDTO) {
-		employeeDTO.setPassword(passwordEncoder.encode(employeeDTO.getPassword()));
+		try {
+			employeeDTO.setPassword(passwordEncoder.encode(employeeDTO.getPassword()));
+			Employee lastEmployee = employeeRepository.findFirstByOrderByEmployeeNumberDesc();
+			if (lastEmployee != null) {
+				int lastNumber = Integer.parseInt(lastEmployee.getEmployeeNumber());
+				employeeDTO.setEmployeeNumber(String.valueOf(lastNumber + 1));
+			} else {
+				employeeDTO.setEmployeeNumber("1");
+			}
 
-		Employee employee = modelMapper.map(employeeDTO, Employee.class);
-		Employee savedEmployee = employeeRepository.save(employee);
+			Employee employee = modelMapper.map(employeeDTO, Employee.class);
+			log.error("Creating employee with number: {}", employee.getEmployeeNumber());
+			Employee savedEmployee = employeeRepository.save(employee);
 
-		return modelMapper.map(savedEmployee, EmployeeResponseDTO.class);
+			return modelMapper.map(savedEmployee, EmployeeResponseDTO.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error("Error creating employee: {}", e.getMessage());
+			throw new RuntimeException("Failed to create employee", e);
+		}
 	}
 
 	@Override
