@@ -1,37 +1,30 @@
 package com.ram.opsnow.employee.service;
 
+import java.util.List;
+
+import com.ram.opsnow.employee.dto.EmployeeCumulativeSalary;
+import com.ram.opsnow.employee.dto.EmployeeDepartmentAnalysis;
+import com.ram.opsnow.employee.dto.EmployeeRanking;
 import com.ram.opsnow.employee.dto.EmployeeRequestDTO;
 import com.ram.opsnow.employee.dto.EmployeeResponseDTO;
-import com.ram.opsnow.employee.entity.Employee;
-import com.ram.opsnow.employee.repository.EmployeeRepository;
-import com.ram.opsnow.exception.DataNotFoundException;
-import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
+import com.ram.opsnow.util.PaginationResponse;
 
-@Service
-@RequiredArgsConstructor
-public class EmployeeService {
+public interface EmployeeService {
+	PaginationResponse<EmployeeResponseDTO> getAllEmployee(int pageNumber, int pageSize, String sortBy,
+			String employeeNumber,
+			String employeeName, String employeeEmail);
 
-    private final EmployeeRepository employeeRepository;
-    private final ModelMapper modelMapper;
-    private final PasswordEncoder passwordEncoder;
+	EmployeeResponseDTO getEmployeeByEmployeeNumber(String employeeNumber);
 
-    public EmployeeRequestDTO createEmployee(EmployeeRequestDTO employeeDTO) {
-        employeeDTO.setPassword(passwordEncoder.encode(employeeDTO.getPassword()));
+	EmployeeResponseDTO createEmployee(EmployeeRequestDTO employeeDTO);
 
-        Employee employee = modelMapper.map(employeeDTO, Employee.class);
-        Employee savedEmployee = employeeRepository.save(employee);
+	EmployeeResponseDTO updateEmployee(EmployeeRequestDTO employeeDTO);
 
-        return modelMapper.map(savedEmployee, EmployeeRequestDTO.class);
-    }
+	String deleteEmployee(String employeeNumber);
 
-    public EmployeeResponseDTO getEmployeeByEmployeeNumber(String employeeNumber) {
-        Employee employee = employeeRepository.findById(employeeNumber)
-                .orElseThrow(
-                        () -> new DataNotFoundException("Employee not found with employee number: " + employeeNumber));
+	List<EmployeeCumulativeSalary> getEmployeeCumulativeSalary();
 
-        return modelMapper.map(employee, EmployeeResponseDTO.class);
-    }
+	List<EmployeeDepartmentAnalysis> getEmployeeDepartmentAnalysis();
+
+	List<EmployeeRanking> getEmployeeRanking();
 }

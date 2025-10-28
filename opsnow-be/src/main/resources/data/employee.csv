@@ -1,0 +1,19 @@
+﻿empno;empname;tiercode;locationcode;departmentcode;supervisorcode;salary;entrydate;password;email
+102;John;60;A1;S;;8346000;2004-05-02 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;John@employee.com
+103;Park;50;A1;E;;8900000;2006-12-06 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;Park@employee.com
+104;eunmok;50;A1;G;101;5430000;2012-09-14 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;eunmok@employee.com
+105;kihong;30;A1;E;103;10000000;2011-04-23 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;kihong@employee.com
+106;youngsak;20;A1;G;101;4400000;2016-01-09 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;youngsak@employee.com
+107;moon;50;A1;S;102;7090000;2018-08-19 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;moon@employee.com
+108;tiger;50;A1;E;103;6400000;2018-02-24 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;tiger@employee.com
+109;min;20;B1;C;101;3100000;2020-06-10 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;min@employee.com
+110;minsak;10;B1;C;101;2200000;2020-08-01 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;minsak@employee.com
+111;hancook;10;B1;C;101;2300000;2020-08-01 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;hancook@employee.com
+112;gonghyun;10;B1;C;101;2200000;2020-08-01 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;gonghyun@employee.com
+113;jaeyang;10;B1;C;101;2400000;2020-08-01 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;jaeyang@employee.com
+114;hansul;10;B1;T;101;2500000;2020-08-01 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;hansul@employee.com
+115;shin;10;A1;G;103;2350000;2020-08-20 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;shin@employee.com
+116;mountain;10;A1;G;103;2350000;2020-08-20 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;mountain@employee.com
+101;stone;60;A1;G;;8530000;2001-03-07 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;stone@employee.com
+117;good112;50;A1;E;103;9012530;2020-09-07 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;good112@employee.com
+118;ahnchung;50;A1;E;103;9553200;2020-09-07 0.00;$2a$10$7w5HMiGteauFy7H3cHH/juWNpBvsoxuSTHISpqdOF8c1g8JTCHprK;ahnchung@employee.com
