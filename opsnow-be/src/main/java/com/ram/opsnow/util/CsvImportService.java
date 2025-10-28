@@ -4,16 +4,17 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.InputStreamReader;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.core.io.ClassPathResource;
 
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +34,8 @@ public class CsvImportService {
 
 		String sql = "INSERT INTO employee (employee_number,employee_name,tier_code,location_code,department_code,supervisor_code,salary,entry_date,password,email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+		try (BufferedReader br = new BufferedReader(
+				new InputStreamReader(new ClassPathResource(filePath).getInputStream()))) {
 			String line;
 			List<Object[]> batchArgs = new ArrayList<>();
 			boolean skipHeader = true;
@@ -93,7 +95,8 @@ public class CsvImportService {
 
 		String sql = "INSERT INTO location (location_code, location_name,location_address) VALUES (?, ?, ?)";
 
-		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+		try (BufferedReader br = new BufferedReader(
+				new InputStreamReader(new ClassPathResource(filePath).getInputStream()))) {
 			String line;
 			List<Object[]> batchArgs = new ArrayList<>();
 			boolean skipHeader = true;
@@ -137,7 +140,8 @@ public class CsvImportService {
 
 		String sql = "INSERT INTO tier (tier_code, tier_name) VALUES (?, ?)";
 
-		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+		try (BufferedReader br = new BufferedReader(
+				new InputStreamReader(new ClassPathResource(filePath).getInputStream()))) {
 			String line;
 			List<Object[]> batchArgs = new ArrayList<>();
 			boolean skipHeader = true;
@@ -179,7 +183,8 @@ public class CsvImportService {
 
 		String sql = "INSERT INTO department (department_code, department_name) VALUES (?, ?)";
 
-		try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+		try (BufferedReader br = new BufferedReader(
+				new InputStreamReader(new ClassPathResource(filePath).getInputStream()))) {
 			String line;
 			List<Object[]> batchArgs = new ArrayList<>();
 			boolean skipHeader = true;
@@ -245,7 +250,6 @@ public class CsvImportService {
 			}
 		}
 
-		// Optional: log unparseable timestamps
 		log.error("⚠️ Unrecognized timestamp format: " + v);
 		return null;
 	}

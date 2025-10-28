@@ -17,13 +17,13 @@ public class CsvDataLoader implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		csvImportService.deleteEmployeeTable();
-		csvImportService.importDepartment("src/main/resources/data/department.csv");
+		csvImportService.importDepartment("data/department.csv");
 		log.info("Department data imported");
-		csvImportService.importTier("src/main/resources/data/tier.csv");
+		csvImportService.importTier("data/tier.csv");
 		log.info("Tier data imported");
-		csvImportService.importLocation("src/main/resources/data/location.csv");
+		csvImportService.importLocation("data/location.csv");
 		log.info("Location data imported");
-		csvImportService.importEmployee("src/main/resources/data/employee.csv");
+		csvImportService.importEmployee("data/employee.csv");
 		log.info("Employee data imported");
 		csvImportService.createLoggingTable();
 		log.info("Logging table created");
