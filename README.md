@@ -34,6 +34,7 @@ mvn spring-boot:run
 
 ## Login Credentials
 For simplicity purpose i've added two new columns (email & password) as the login credentials.
+<br>
 The default password is **password123**.
 
 ## Services (docker-compose)
@@ -66,7 +67,7 @@ args:
 
 The backend currently allows the origins `http://localhost:3000` and `http://localhost:3001` in `opsnow-be/src/main/java/com/ram/opsnow/config/CorsConfig.java`. If you change the served host/port, update allowed origins accordingly.
 
-## Architecture Diagram (Mermaid)
+## Architecture Diagram
 
 ![Architecture Diagram](docs/ad.png)
 
@@ -79,4 +80,3 @@ The backend currently allows the origins `http://localhost:3000` and `http://loc
 - `opsnow-be/`: Spring Boot app (Java 21, Spring Boot 3)
 - `opsnow-frontend/`: React app
 - `docker-compose.yml`
-- `docs/erd.png`: ERD image
