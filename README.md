@@ -32,6 +32,10 @@ cd opsnow-be & mvn clean install
 mvn spring-boot:run
 ```
 
+## Login Credentials
+For simplicity purpose i've added two new columns (email & password) as the login credentials.
+The default password is **password123**.
+
 ## Services (docker-compose)
 
 - **db**: PostgreSQL
